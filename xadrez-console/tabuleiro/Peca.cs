@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace tabuleiro
+﻿namespace tabuleiro
 {
     abstract class Peca
     {
+
         public Posicao posicao { get; set; }
         public Cor cor { get; protected set; }
         public int qteMovimentos { get; protected set; }
@@ -18,6 +15,7 @@ namespace tabuleiro
             this.cor = cor;
             this.qteMovimentos = 0;
         }
+
         public void incrementarQteMovimentos()
         {
             qteMovimentos++;
@@ -28,14 +26,14 @@ namespace tabuleiro
             qteMovimentos--;
         }
 
-        public bool existeMovimentosPosiveis()
+        public bool existeMovimentosPossiveis()
         {
-            bool[,] mat = movimentosPosiveis();
+            bool[,] mat = movimentosPossiveis();
             for (int i = 0; i < tab.linhas; i++)
             {
-                for(int j = 0; j < tab.colunas; j++)
+                for (int j = 0; j < tab.colunas; j++)
                 {
-                    if(mat[i, j])
+                    if (mat[i, j])
                     {
                         return true;
                     }
@@ -46,9 +44,9 @@ namespace tabuleiro
 
         public bool movimentoPossivel(Posicao pos)
         {
-            return movimentosPosiveis()[pos.linha, pos.coluna];
+            return movimentosPossiveis()[pos.linha, pos.coluna];
         }
-        public abstract bool[,] movimentosPosiveis();
 
+        public abstract bool[,] movimentosPossiveis();
     }
 }
