@@ -8,20 +8,6 @@ namespace xadrez_console
 {
     class Tela
     {
-        public static void imprimirTabuleiro(Tabuleiro tab)
-        {
-            for (int i = 0; i < tab.linhas; i++ )
-            {
-                Console.Write(8 - i + " ");
-                for(int j = 0; j < tab.colunas; j++)
-                {
-                    Tela.imprimirPeca(tab.peca(i, j));
-                }
-                Console.WriteLine();
-            }
-            Console.WriteLine("  A B C D E F G H");
-        }
-
         public static void imprimirPartida(PartidaDeXadrez partida)
         {
             imprimirTabuleiro(partida.tab);
@@ -30,9 +16,9 @@ namespace xadrez_console
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.turno);
             Console.WriteLine("Aguardando jagada: " + partida.jogadorAtual);
+            if (partida.xeque) Console.WriteLine("XEQUE!");
             
         }
-
         public static void imprimirPecasCapturadas(PartidaDeXadrez partida)
         {
             Console.WriteLine("Pecas capturadas:");
@@ -46,7 +32,6 @@ namespace xadrez_console
             Console.ForegroundColor = aux;
             Console.WriteLine();
         }
-
         public static void imprimirConjunto(HashSet<Peca> conjunto)
         {
             Console.Write("[");
@@ -55,6 +40,19 @@ namespace xadrez_console
                 Console.Write(x + " ");
             }
             Console.Write("]");
+        }
+        public static void imprimirTabuleiro(Tabuleiro tab)
+        {
+            for (int i = 0; i < tab.linhas; i++ )
+            {
+                Console.Write(8 - i + " ");
+                for(int j = 0; j < tab.colunas; j++)
+                {
+                    Tela.imprimirPeca(tab.peca(i, j));
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("  A B C D E F G H");
         }
 
         public static void imprimirTabuleiro(Tabuleiro tab, bool[,] posicoesPosiveis)
@@ -97,17 +95,11 @@ namespace xadrez_console
         public static void imprimirPeca(Peca peca)
         {
 
-            if (peca == null)
-            {
-                Console.Write("- ");
-            }
+            if (peca == null) Console.Write("- ");
             else
             {
 
-                if (peca.cor == Cor.Branca)
-                {
-                    Console.Write(peca);
-                }
+                if (peca.cor == Cor.Branca) Console.Write(peca);
                 else
                 {
                     ConsoleColor aux = Console.ForegroundColor;
